@@ -1,4 +1,4 @@
-const API_URL = "https://YOUR-API.vercel.app";
+const API_URL = "https://cs-301-martin-benitez-api.vercel.app/";
 
 
 // GET ALL CARS
