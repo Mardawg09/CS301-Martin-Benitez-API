@@ -2,8 +2,8 @@ from fastapi import FastAPI, HTTPException, Header, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
-    title="Simple Car API",
-    description="A beginner-friendly REST API containing information about cars.",
+    title="Sneakers",
+    description="A beginner-friendly REST API containing information about sneakers.",
     version="1.0.0"
 )
 
@@ -15,114 +15,114 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# CAR DATA
-cars = [
-
+# Sneakers DATA
+sneakers = [
     {
         "id": 1,
-        "make": "Toyota",
-        "model": "Corolla",
-        "year": 1998,
-        "engine": "1.6L 4-cylinder",
-        "horsepower": 105,
-        "description": "A practical and reliable compact sedan."
+        "brand": "Nike",
+        "model": "Air Jordan 1 High",
+        "year": 1985,
+        "colorway": "Chicago (White/Varsity Red/Black)",
+        "price": 65,
+        "description": "An iconic high-top basketball shoe that started a cultural revolution."
     },
 
     {
         "id": 2,
-        "make": "Honda",
-        "model": "Civic Si",
-        "year": 1999,
-        "engine": "1.6L 4-cylinder",
-        "horsepower": 160,
-        "description": "A sporty compact car popular with enthusiasts."
+        "brand": "Adidas",
+        "model": "Yeezy Boost 350 V2",
+        "year": 2016,
+        "colorway": "Beluga",
+        "price": 220,
+        "description": "A highly coveted lifestyle sneaker featuring a Primeknit upper and Boost midsole."
     },
 
     {
         "id": 3,
-        "make": "Mitsubishi",
-        "model": "Eclipse GSX",
-        "year": 1999,
-        "engine": "2.0L Turbo 4-cylinder",
-        "horsepower": 210,
-        "description": "A turbocharged AWD coupe built for performance."
+        "brand": "Puma",
+        "model": "Suede Classic",
+        "year": 1968,
+        "colorway": "Black/White",
+        "price": 70,
+        "description": "A timeless low-top sneaker known for its smooth suede finish and street-style legacy."
     },
 
     {
         "id": 4,
-        "make": "Subaru",
-        "model": "Impreza WRX",
-        "year": 2002,
-        "engine": "2.0L Turbo 4-cylinder",
-        "horsepower": 227,
-        "description": "A turbocharged AWD performance sedan."
+        "brand": "New Balance",
+        "model": "990v5",
+        "year": 2019,
+        "colorway": "Castlerock/Grey",
+        "price": 175,
+        "description": "A premium lifestyle shoe famous for its all-day comfort and classic dad-shoe aesthetic."
     },
 
     {
         "id": 5,
-        "make": "Mazda",
-        "model": "MX-5 Miata",
-        "year": 2001,
-        "engine": "1.8L 4-cylinder",
-        "horsepower": 142,
-        "description": "A lightweight two-seat roadster famous for its handling."
+        "brand": "ASICS",
+        "model": "Gel-Lyte III",
+        "year": 1990,
+        "colorway": "Salmon Toe",
+        "price": 130,
+        "description": "A classic retro runner renowned for its unique split-tongue design and Gel cushioning."
     }
-
+    
 ]
 
 # HOME
-@app.get("/")
+@app.get("/sneakers")
 def home():
 
     return {
-        "message": "Welcome to the Simple Car API!",
+        "message": "Welcome to the Simple Sneakers API!",
         "endpoints": [
-            "/cars",
-            "/cars/{id}",
-            "/cars/search"
+            "/sneakers",
+            "/sneakers/{id}",
+            "/sneakers/search"
         ]
     }
 
 
 # GET ALL CARS
-@app.get("/cars")
+@app.get("/sneakers")
 def get_cars():
 
     return {
-        "count": len(cars),
-        "cars": cars
+        "count": len(sneakers),
+        "sneakers": sneakers
     }
 
 
 # GET ONE CAR
-@app.get("/cars/{car_id}")
-def get_car(car_id: int):
+@app.get("/sneakers/{sneaker_id}")
+def get_car(sneaker_id: int):
 
-    for car in cars:
+    for sneaker in sneakers:
 
-        if car["id"] == car_id:
-            return car
+        if sneaker["id"] == sneaker_id:
+            return sneaker
 
     raise HTTPException(
         status_code=404,
-        detail="Car not found."
+        detail="Sneaker not found."
     )
 
 # SEARCH CARS
-@app.get("/cars/search")
-def search_cars( q: str = Query(..., min_length=1)):
+@app.get("/sneakers/search")
+def search_sneakers( q: str = Query(..., min_length=1)):
     q = q.lower()
     results = []
-    for car in cars:
+    for sneaker in sneakers:
         searchable_text = (
-            f"{car['make']} "
-            f"{car['model']} "
-            f"{car['year']} "
-            f"{car['engine']}"
+            f"{sneaker['brand']} "
+            f"{sneaker['model']} "
+            f"{sneaker['year']} "
+            f"{sneaker['colorway']} "
+            f"{sneaker['price']} "
         ).lower()
 
         if q in searchable_text:
-            results.append(car)
+            results.append(sneaker)
 
     return {
         "query": q,
