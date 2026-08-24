@@ -2,61 +2,61 @@ const API_URL = "https://cs-301-martin-benitez-api.vercel.app/";
 
 
 // GET ALL CARS
-async function loadCars() {
+async function loadSneaker() {
     try {
-        const response = await fetch(`${API_URL}/cars`);
+        const response = await fetch(`${API_URL}/sneakers`);
         const data = await response.json();
-        displayCars(data.cars);
+        displaySneaker(data.sneaker);
     }
 
     catch (error) {
         console.error(error);
-        document.getElementById("carList").innerHTML = "Unable to connect to the API.";
+        document.getElementById("sneakerList").innerHTML = "Unable to connect to the API.";
     }
 }
 
 
 // DISPLAY CARS
-function displayCars(cars) {
-    const carList =
-        document.getElementById("carList");
+function displaySneaker(sneakers) {
+    const sneakerList =
+        document.getElementById("sneakerList");
 
-    carList.innerHTML = "";
+    sneakerList.innerHTML = "";
 
-    cars.forEach(car => {
+    sneakers.forEach(sneaker => {
         const card = document.createElement("div");
-        card.className = "car-card";
+        card.className = "Sneakers-card";
         card.innerHTML = `
-            <div class="car-year">${car.year}</div>
-            <h3>${car.make} ${car.model}</h3>
-            <p class="car-engine">${car.engine}</p>
-            <p>${car.horsepower} horsepower/p>
-            <p>${car.description}</p>
-            <button onclick="viewCar(${car.id})"> View Details</button>
+            <div class="Sneaker-year">${sneaker.year}</div>
+            <h3>${sneaker.brand} ${sneaker.model}</h3>
+            <p class="Sneaker-colorway">${sneaker.colorway}</p>
+            <p>${sneaker.price} price/p>
+            <p>${sneaker.description}</p>
+            <button onclick="viewSneaker(${sneaker.id})"> View Details</button>
         `;
 
-        carList.appendChild(card);
+        sneakerList.appendChild(card);
     });
 
 }
 
 // GET ONE CAR
-async function viewCar(id) {
+async function viewSneaker(id) {
 
     try {
-        const response = await fetch(`${API_URL}/cars/${id}`);
-        const car = await response.json();
+        const response = await fetch(`${API_URL}/sneakers/${id}`);
+        const sneaker = await response.json();
 
         alert(`
-            ${car.year} ${car.make} ${car.model}
+            ${sneaker.year} ${sneaker.brand} ${sneaker.model}
             Engine:
-            ${car.engine}
+            ${sneaker.colorway}
 
             Horsepower:
-            ${car.horsepower}
+            ${sneaker.price}
 
             Description:
-            ${car.description}
+            ${sneaker.description}
         `);
     }
     catch (error) {
@@ -67,18 +67,18 @@ async function viewCar(id) {
 }
 
 // SEARCH
-async function searchCars() {
+async function searchSneakers() {
 
     const query = document.getElementById("searchInput").value;
     if (!query) {
-        loadCars();
+        loadSneaker();
         return;
     }
     try {
         const response =
-            await fetch(`${API_URL}/cars/search?q=${encodeURIComponent(query)}`);
+            await fetch(`${API_URL}/sneaker/search?q=${encodeURIComponent(query)}`);
         const data = await response.json();
-        displayCars(data.results);
+        displaySneaker(data.results);
     }
 
     catch (error) {
@@ -87,4 +87,4 @@ async function searchCars() {
     }
 }
 
-loadCars();
+loadSneaker();
