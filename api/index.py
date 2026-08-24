@@ -66,11 +66,11 @@ sneakers = [
         "price": 130,
         "description": "A classic retro runner renowned for its unique split-tongue design and Gel cushioning."
     }
-    
+
 ]
 
 # HOME
-@app.get("/sneakers")
+@app.get("/")
 def home():
 
     return {
@@ -85,7 +85,7 @@ def home():
 
 # GET ALL CARS
 @app.get("/sneakers")
-def get_cars():
+def get_sneakers():
 
     return {
         "count": len(sneakers),
@@ -95,7 +95,7 @@ def get_cars():
 
 # GET ONE CAR
 @app.get("/sneakers/{sneaker_id}")
-def get_car(sneaker_id: int):
+def get_sneakers(sneaker_id: int):
 
     for sneaker in sneakers:
 
