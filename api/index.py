@@ -93,21 +93,6 @@ def get_sneakers():
     }
 
 
-# GET ONE CAR
-@app.get("/sneakers/{sneaker_id}")
-def get_sneakers(sneaker_id: int):
-
-    for sneaker in sneakers:
-
-        if sneaker["id"] == sneaker_id:
-            return sneaker
-
-    raise HTTPException(
-        status_code=404,
-        detail="Sneaker not found."
-    )
-
-# SEARCH CARS
 @app.get("/sneakers/search")
 def search_sneakers( q: str = Query(..., min_length=1)):
     q = q.lower()
@@ -129,3 +114,20 @@ def search_sneakers( q: str = Query(..., min_length=1)):
         "count": len(results),
         "results": results
     }
+
+
+# GET ONE CAR
+@app.get("/sneakers/{sneaker_id}")
+def get_sneakers(sneaker_id: int):
+
+    for sneaker in sneakers:
+
+        if sneaker["id"] == sneaker_id:
+            return sneaker
+
+    raise HTTPException(
+        status_code=404,
+        detail="Sneaker not found."
+    )
+
+# SEARCH CARS
