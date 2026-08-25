@@ -15,58 +15,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Sneakers DATA
-sneakers = [
+# Recipe DATA
+recipe = [
     {
-        "id": 1,
-        "brand": "Nike",
-        "model": "Air Jordan 1 High",
-        "year": 1985,
-        "colorway": "Chicago (White/Varsity Red/Black)",
-        "price": 65,
-        "description": "An iconic high-top basketball shoe that started a cultural revolution."
-    },
-
-    {
-        "id": 2,
-        "brand": "Adidas",
-        "model": "Yeezy Boost 350 V2",
-        "year": 2016,
-        "colorway": "Beluga",
-        "price": 220,
-        "description": "A highly coveted lifestyle sneaker featuring a Primeknit upper and Boost midsole."
-    },
-
-    {
-        "id": 3,
-        "brand": "Puma",
-        "model": "Suede Classic",
-        "year": 1968,
-        "colorway": "Black/White",
-        "price": 70,
-        "description": "A timeless low-top sneaker known for its smooth suede finish and street-style legacy."
-    },
-
-    {
-        "id": 4,
-        "brand": "New Balance",
-        "model": "990v5",
-        "year": 2019,
-        "colorway": "Castlerock/Grey",
-        "price": 175,
-        "description": "A premium lifestyle shoe famous for its all-day comfort and classic dad-shoe aesthetic."
-    },
-
-    {
-        "id": 5,
-        "brand": "ASICS",
-        "model": "Gel-Lyte III",
-        "year": 1990,
-        "colorway": "Salmon Toe",
-        "price": 130,
-        "description": "A classic retro runner renowned for its unique split-tongue design and Gel cushioning."
+        "id"
+        "ingredients"
+        "diffculty"
+        "steps"
+        "rating"
+        "type"
+        "carbs"
+        "protein"
+        "allergen"
+        "sugar"
+        "fiber"
+        "sodium"
+        "servings"
+        "description"
     }
-
 ]
 
 # HOME
