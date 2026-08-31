@@ -5,11 +5,13 @@ async function loadRecipes() {
     try {
         const response = await fetch(`${API_URL}/recipes`);
         const data = await response.json();
+
         displayRecipes(data.recipes);
     }
 
     catch (error) {
         console.error(error);
+
         document.getElementById("recipeList").innerHTML =
             "Unable to connect to the API.";
     }
@@ -18,39 +20,50 @@ async function loadRecipes() {
 
 // DISPLAY RECIPES
 function displayRecipes(recipes) {
+
     const recipeList =
         document.getElementById("recipeList");
 
     recipeList.innerHTML = "";
 
     recipes.forEach(recipe => {
+
         const card = document.createElement("div");
 
         card.className = "recipe-card";
 
         card.innerHTML = `
-            <div class="recipe-type">${recipe.type}</div>
+            <div class="recipe-type">
+                ${recipe.type}
+            </div>
 
-            <h3>Recipe #${recipe.id}</h3>
+            <h3>
+                ${recipe.name}
+            </h3>
 
-            <p class="recipe-difficulty">
-                Difficulty: ${recipe.difficulty}
+            <p>
+                <strong>Difficulty:</strong>
+                ${recipe.difficulty}
             </p>
 
             <p>
-                Rating: ${recipe.rating}
+                <strong>Rating:</strong>
+                ${recipe.rating} ⭐
             </p>
 
             <p>
-                Protein: ${recipe.protein}g
+                <strong>Servings:</strong>
+                ${recipe.servings}
             </p>
 
             <p>
-                Carbs: ${recipe.carbs}g
+                <strong>Protein:</strong>
+                ${recipe.protein}g
             </p>
 
             <p>
-                Servings: ${recipe.servings}
+                <strong>Carbs:</strong>
+                ${recipe.carbs}g
             </p>
 
             <p>
@@ -69,14 +82,17 @@ function displayRecipes(recipes) {
 
 // GET ONE RECIPE
 async function viewRecipe(id) {
+
     try {
+
         const response =
             await fetch(`${API_URL}/recipes/${id}`);
 
-        const recipe = await response.json();
+        const recipe =
+            await response.json();
 
         alert(`
-Recipe #${recipe.id}
+${recipe.name}
 
 Type:
 ${recipe.type}
@@ -85,7 +101,7 @@ Difficulty:
 ${recipe.difficulty}
 
 Rating:
-${recipe.rating}
+${recipe.rating} ⭐
 
 Ingredients:
 ${recipe.ingredients.join(", ")}
@@ -108,6 +124,11 @@ ${recipe.fiber}g
 Sodium:
 ${recipe.sodium}mg
 
+Allergens:
+${recipe.allergen.length > 0
+    ? recipe.allergen.join(", ")
+    : "None"}
+
 Servings:
 ${recipe.servings}
 
@@ -117,7 +138,9 @@ ${recipe.description}
     }
 
     catch (error) {
+
         console.error(error);
+
         alert("Unable to retrieve recipe.");
     }
 }
@@ -125,6 +148,7 @@ ${recipe.description}
 
 // SEARCH RECIPES
 async function searchRecipes() {
+
     const query =
         document.getElementById("searchInput").value;
 
@@ -134,18 +158,22 @@ async function searchRecipes() {
     }
 
     try {
+
         const response =
             await fetch(
                 `${API_URL}/recipes/search?q=${encodeURIComponent(query)}`
             );
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
         displayRecipes(data.results);
     }
 
     catch (error) {
+
         console.error(error);
+
         alert("Search failed.");
     }
 }
