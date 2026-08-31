@@ -1,9 +1,9 @@
-from fastapi import FastAPI, HTTPException, Header, Query
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
-    title="Sneakers",
-    description="A beginner-friendly REST API containing information about sneakers.",
+    title="Recipe",
+    description="A beginner-friendly REST API containing information about recipes.",
     version="1.0.0"
 )
 
@@ -16,64 +16,64 @@ app.add_middleware(
 )
 
 # Recipe DATA
-recipe = [
+recipes = [
     {
-        "id"
-        "ingredients"
-        "diffculty"
-        "steps"
-        "rating"
-        "type"
-        "carbs"
-        "protein"
-        "allergen"
-        "sugar"
-        "fiber"
-        "sodium"
-        "servings"
-        "description"
+        "id": 1,
+        "ingredients": ["chicken", "garlic", "soy sauce"],
+        "difficulty": "Easy",
+        "steps": ["Marinate chicken", "Cook chicken", "Serve"],
+        "rating": 4.5,
+        "type": "Main Course",
+        "carbs": 10,
+        "protein": 30,
+        "allergen": ["soy"],
+        "sugar": 3,
+        "fiber": 2,
+        "sodium": 500,
+        "servings": 2,
+        "description": "A simple and delicious chicken recipe."
     }
 ]
 
 # HOME
 @app.get("/")
 def home():
-
     return {
-        "message": "Welcome to the Simple Sneakers API!",
+        "message": "Welcome to the Simple Recipe API!",
         "endpoints": [
-            "/sneakers",
-            "/sneakers/{id}",
-            "/sneakers/search"
+            "/recipes",
+            "/recipes/{id}",
+            "/recipes/search"
         ]
     }
 
 
-# GET ALL CARS
-@app.get("/sneakers")
-def get_sneakers():
-
+# GET ALL RECIPES
+@app.get("/recipes")
+def get_recipes():
     return {
-        "count": len(sneakers),
-        "sneakers": sneakers
+        "count": len(recipes),
+        "recipes": recipes
     }
 
 
-@app.get("/sneakers/search")
-def search_sneakers( q: str = Query(..., min_length=1)):
+# SEARCH RECIPES
+@app.get("/recipes/search")
+def search_recipes(q: str = Query(..., min_length=1)):
     q = q.lower()
     results = []
-    for sneaker in sneakers:
+
+    for recipe in recipes:
         searchable_text = (
-            f"{sneaker['brand']} "
-            f"{sneaker['model']} "
-            f"{sneaker['year']} "
-            f"{sneaker['colorway']} "
-            f"{sneaker['price']} "
+            f"{recipe['ingredients']} "
+            f"{recipe['difficulty']} "
+            f"{recipe['type']} "
+            f"{recipe['description']} "
+            f"{recipe['allergen']} "
         ).lower()
 
         if q in searchable_text:
-            results.append(sneaker)
+            results.append(recipe)
 
     return {
         "query": q,
@@ -82,18 +82,14 @@ def search_sneakers( q: str = Query(..., min_length=1)):
     }
 
 
-# GET ONE CAR
-@app.get("/sneakers/{sneaker_id}")
-def get_sneakers(sneaker_id: int):
-
-    for sneaker in sneakers:
-
-        if sneaker["id"] == sneaker_id:
-            return sneaker
+# GET ONE RECIPE
+@app.get("/recipes/{recipe_id}")
+def get_recipe(recipe_id: int):
+    for recipe in recipes:
+        if recipe["id"] == recipe_id:
+            return recipe
 
     raise HTTPException(
         status_code=404,
-        detail="Sneaker not found."
+        detail="Recipe not found."
     )
-
-# SEARCH CARS
