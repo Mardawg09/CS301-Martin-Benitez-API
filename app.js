@@ -7,10 +7,13 @@ const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add("visible");
+            entry.target.addEventListener("transitionend", () => {
+                entry.target.style.willChange = "auto";
+            }, { once: true });
             revealObserver.unobserve(entry.target);
         }
     });
-}, { threshold: 0.12 });
+}, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
 
 function observeCards() {
     document.querySelectorAll(".recipe-card:not(.visible)").forEach(card => {
@@ -72,7 +75,7 @@ function displayRecipes(recipes) {
 
         const card = document.createElement("div");
         card.className = "recipe-card";
-        card.style.transitionDelay = `${Math.min(index, 8) * 60}ms`;
+        card.style.transitionDelay = `${Math.min(index, 8) * 35}ms`;
 
         card.innerHTML = `
             <div class="recipe-type">${recipe.type}</div>
