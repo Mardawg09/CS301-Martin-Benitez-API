@@ -391,6 +391,13 @@ recipes = [
 ]
 
 
+# ==================================
+# ON-BOOT DATA VALIDATION
+# ==================================
+validated_recipes = [
+    Recipe(**recipe).model_dump()
+    for recipe in recipes
+]
 
 
 # ============================================================
