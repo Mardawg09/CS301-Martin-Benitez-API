@@ -505,7 +505,7 @@ def health_check():
     return{
         "status": "ok",
         "services": "Simple Recipe API",
-        "version": "API_VERSION",
+        "version": API_VERSION,
         "timestamp": datetime.utcnow().isoformat() + "Z" 
     }
 
