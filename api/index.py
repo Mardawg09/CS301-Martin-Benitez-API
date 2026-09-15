@@ -36,7 +36,7 @@ class Recipe(BaseModel):
     difficulty: Literal["Easy", "Medium","Hard"]
     steps: str = Field(min_length=1)
     rating: float = Field(ge=0, le=5)
-    type: Literal["","","","",""]
+    type: Literal["American","Filipino","Italian","Chinese","Mediterranean"]
     carbs: int = Field(ge=0)
     protein: int = Field(ge=0)
     allergen: str = Field(min_length=1)
@@ -55,7 +55,7 @@ recipes = [
         "difficulty": "Easy",
         "steps": ["Marinate chicken", "Heat the pan", "Cook chicken", "Serve"],
         "rating": 4.5,
-        "type": "Main Course",
+        "type": "Chinese",
         "carbs": 8,
         "protein": 32,
         "allergen": ["soy"],
@@ -72,7 +72,7 @@ recipes = [
         "difficulty": "Medium",
         "steps": ["Boil pasta", "Cook beef", "Add tomato sauce", "Combine with pasta"],
         "rating": 4.7,
-        "type": "Pasta",
+        "type": "Italian",
         "carbs": 45,
         "protein": 25,
         "allergen": ["wheat"],
@@ -89,7 +89,7 @@ recipes = [
         "difficulty": "Easy",
         "steps": ["Cook rice", "Stir-fry chicken", "Add vegetables", "Add rice and soy sauce", "Mix in egg"],
         "rating": 4.6,
-        "type": "Rice",
+        "type": "Chinese",
         "carbs": 42,
         "protein": 28,
         "allergen": ["soy", "egg"],
@@ -106,7 +106,7 @@ recipes = [
         "difficulty": "Medium",
         "steps": ["Cut ingredients", "Brown the beef", "Add vegetables", "Simmer until tender"],
         "rating": 4.4,
-        "type": "Stew",
+        "type": "American",
         "carbs": 30,
         "protein": 29,
         "allergen": [],
@@ -123,7 +123,7 @@ recipes = [
         "difficulty": "Easy",
         "steps": ["Chop vegetables", "Cook vegetables", "Add eggs", "Stir until cooked"],
         "rating": 4.3,
-        "type": "Breakfast",
+        "type": "American",
         "carbs": 9,
         "protein": 14,
         "allergen": ["egg"],
@@ -174,7 +174,7 @@ recipes = [
         "difficulty": "Easy",
         "steps": ["Mash bananas", "Mix ingredients", "Heat pan", "Cook pancakes"],
         "rating": 4.6,
-        "type": "Dessert",
+        "type": "American",
         "carbs": 38,
         "protein": 8,
         "allergen": ["wheat", "egg", "milk"],
@@ -191,7 +191,7 @@ recipes = [
         "difficulty": "Easy",
         "steps": ["Chop vegetables", "Cook chicken", "Combine ingredients", "Add dressing"],
         "rating": 4.2,
-        "type": "Salad",
+        "type": "Mediterranean",
         "carbs": 12,
         "protein": 25,
         "allergen": [],
@@ -208,7 +208,7 @@ recipes = [
         "difficulty": "Easy",
         "steps": ["Butter bread", "Add cheese", "Heat pan", "Toast both sides"],
         "rating": 4.5,
-        "type": "Snack",
+        "type": "American",
         "carbs": 28,
         "protein": 12,
         "allergen": ["wheat", "milk"],
@@ -225,7 +225,7 @@ recipes = [
         "difficulty": "Medium",
         "steps": ["Season salmon", "Prepare garlic butter", "Pan-sear salmon", "Add lemon"],
         "rating": 4.8,
-        "type": "Seafood",
+        "type": "Mediterranean",
         "carbs": 3,
         "protein": 34,
         "allergen": ["fish", "milk"],
@@ -242,7 +242,7 @@ recipes = [
         "difficulty": "Easy",
         "steps": ["Boil potatoes", "Mash potatoes", "Add milk and butter", "Season"],
         "rating": 4.4,
-        "type": "Side Dish",
+        "type": "American",
         "carbs": 32,
         "protein": 5,
         "allergen": ["milk"],
@@ -259,7 +259,7 @@ recipes = [
         "difficulty": "Medium",
         "steps": ["Coat chicken in flour", "Dip in egg", "Cover with breadcrumbs", "Fry until golden"],
         "rating": 4.6,
-        "type": "Main Course",
+        "type": "American",
         "carbs": 24,
         "protein": 30,
         "allergen": ["wheat", "egg"],
@@ -276,7 +276,7 @@ recipes = [
         "difficulty": "Easy",
         "steps": ["Combine oats and milk", "Cook oats", "Add banana", "Drizzle with honey"],
         "rating": 4.5,
-        "type": "Breakfast",
+        "type": "American",
         "carbs": 42,
         "protein": 10,
         "allergen": ["milk"],
@@ -293,7 +293,7 @@ recipes = [
         "difficulty": "Easy",
         "steps": ["Clean shrimp", "Melt butter", "Cook garlic", "Add shrimp", "Finish with lemon"],
         "rating": 4.7,
-        "type": "Seafood",
+        "type": "Spanish",
         "carbs": 4,
         "protein": 28,
         "allergen": ["shellfish", "milk"],
@@ -310,7 +310,7 @@ recipes = [
         "difficulty": "Medium",
         "steps": ["Cook chicken", "Add garlic and ginger", "Add coconut milk", "Add rice", "Simmer"],
         "rating": 4.6,
-        "type": "Rice",
+        "type": "Southeast Asian",
         "carbs": 40,
         "protein": 26,
         "allergen": [],
@@ -327,7 +327,7 @@ recipes = [
         "difficulty": "Easy",
         "steps": ["Saute onion and garlic", "Add tomatoes", "Add broth", "Blend", "Add cream"],
         "rating": 4.3,
-        "type": "Soup",
+        "type": "Italian",
         "carbs": 15,
         "protein": 5,
         "allergen": ["milk"],
@@ -344,7 +344,7 @@ recipes = [
         "difficulty": "Medium",
         "steps": ["Form beef patty", "Grill patty", "Toast bun", "Add vegetables and cheese"],
         "rating": 4.7,
-        "type": "Burger",
+        "type": "American",
         "carbs": 35,
         "protein": 27,
         "allergen": ["wheat", "milk"],
@@ -361,7 +361,7 @@ recipes = [
         "difficulty": "Easy",
         "steps": ["Cut fruit", "Add ingredients to blender", "Blend until smooth", "Serve cold"],
         "rating": 4.8,
-        "type": "Drink",
+        "type": "Filipino",
         "carbs": 35,
         "protein": 7,
         "allergen": ["milk"],
@@ -378,7 +378,7 @@ recipes = [
         "difficulty": "Medium",
         "steps": ["Mix dry ingredients", "Add wet ingredients", "Add chocolate", "Bake", "Cool and serve"],
         "rating": 4.9,
-        "type": "Dessert",
+        "type": "American",
         "carbs": 45,
         "protein": 6,
         "allergen": ["wheat", "egg", "milk"],
@@ -389,6 +389,7 @@ recipes = [
         "description": "Rich and fudgy chocolate brownies with chocolate pieces."
     }
 ]
+
 
 
 
