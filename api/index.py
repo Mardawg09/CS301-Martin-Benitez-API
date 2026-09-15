@@ -1,5 +1,15 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Header, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from datetime import datetime
+from pydantic import BaseModel, Field
+from typing import Optional, Literal
+
+
+#==========================
+# CONFIGURATION
+#==========================
+API_KEY = "recipe-api-key-123"
+API_VERSION = "1.0"
 
 app = FastAPI(
     title="Recipe",
@@ -14,6 +24,27 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+#==============================
+# Data model 
+#==============================
+
+class Recipe(BaseModel):
+    id: int
+    name: str = Field(min_length=1)
+    ingredients: str = Field(min_length=1)
+    difficulty: Literal["Easy", "Medium","Hard"]
+    steps: str = Field(min_length=1)
+    rating: float = Field(ge=0, le=5)
+    type: Literal["","","","",""]
+    carbs: int = Field(ge=0)
+    protein: int = Field(ge=0)
+    allergen: str = Field(min_length=1)
+    sugar: int = Field(ge=0)
+    fiber: int = Field(ge=0)
+    sodium: int = Field(ge=0)
+    servings: int = Field(ge=0)
+    description: str =Field(min_length=10, max_length=500)
 
 # Recipe DATA
 recipes = [
@@ -420,3 +451,50 @@ def get_recipe(recipe_id: int):
         status_code=404,
         detail="Recipe not found."
     )
+
+
+#============================
+# API KEY AUTHENTICATION 
+#============================
+
+def verify_api_key(x_api_key: Optional[str] = Header(default = None)):
+    if x_api_key != API_KEY:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid or missing API key"
+        )
+    return True
+
+
+# ============================================================
+# HEALTH CHECK (Public)
+# ============================================================
+@app.get("/health")
+def health_check():
+    return{
+        "status": "ok",
+        "services": "Simple Recipe API",
+        "version": "API_VERSION",
+        "timestamp": datetime.utcnow().isoFormat() + "Z" 
+    }
+
+#==========================================================
+# GET ALL RECIPES (PROTECTED)
+#==========================================================
+@app.get("/api/v1/recipe", dependencies=[Depends(verify_api_key)])
+def get_recipe():
+    return {
+        "count": len(recipes),
+        "recipes": recipes
+    }
+
+#==========================================================
+# GET ONE RECIPES (PROTECTED)
+#==========================================================
+
+@app.get("/api/v1/recipe/{recipe_id}", dependencies=[Depends(verify_api_key)])
+def get_recipe(recipe_id: int):
+    for recipe in recipes:
+        if recipe["id"] == recipe_id:
+            return recipe
+    raise HTTPException(status_code=404, detail="Recipe Not Found")
