@@ -420,9 +420,6 @@ validated_recipes = [
     for recipe in recipes
 ]
 
-
-
-
 # HOME
 @app.get("/")
 def home():
