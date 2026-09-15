@@ -393,6 +393,19 @@ recipes = [
 
 
 
+# ============================================================
+# HEALTH CHECK (Public)
+# ============================================================
+@app.get("/health")
+def health_check():
+    return{
+        "status": "ok",
+        "services": "Simple Recipe API",
+        "version": "API_VERSION",
+        "timestamp": datetime.utcnow().isoFormat() + "Z" 
+    }
+
+
 # HOME
 @app.get("/")
 def home():
@@ -467,17 +480,7 @@ def verify_api_key(x_api_key: Optional[str] = Header(default = None)):
     return True
 
 
-# ============================================================
-# HEALTH CHECK (Public)
-# ============================================================
-@app.get("/health")
-def health_check():
-    return{
-        "status": "ok",
-        "services": "Simple Recipe API",
-        "version": "API_VERSION",
-        "timestamp": datetime.utcnow().isoFormat() + "Z" 
-    }
+
 
 #==========================================================
 # GET ALL RECIPES (PROTECTED)
