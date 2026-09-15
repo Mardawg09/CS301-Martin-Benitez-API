@@ -506,7 +506,7 @@ def health_check():
         "status": "ok",
         "services": "Simple Recipe API",
         "version": "API_VERSION",
-        "timestamp": datetime.utcnow().isoFormat() + "Z" 
+        "timestamp": datetime.utcnow().isoformat() + "Z" 
     }
 
 
