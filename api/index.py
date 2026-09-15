@@ -36,7 +36,7 @@ class Recipe(BaseModel):
     difficulty: Literal["Easy", "Medium","Hard"]
     steps: str = Field(min_length=1)
     rating: float = Field(ge=0, le=5)
-    type: Literal["American","Filipino","Italian","Chinese","Mediterranean"]
+    type: Literal["American","Filipino","Italian","Chinese","Mediterranean","Spanish"]
     carbs: int = Field(ge=0)
     protein: int = Field(ge=0)
     allergen: str = Field(min_length=1)
