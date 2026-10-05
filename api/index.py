@@ -56,6 +56,7 @@ class Recipe(BaseModel):
 
 # Recipe DATA
 recipes = [
+
     {
         "id": 1,
         "name": "Garlic Soy Chicken",
@@ -71,8 +72,11 @@ recipes = [
         "fiber": 2,
         "sodium": 520,
         "servings": 2,
+        "estimated_cost": 180,
+        "diet_tags": ["High Protein", "Low Carb", "Low Sugar"],
         "description": "Simple garlic chicken cooked with soy sauce and pepper."
     },
+
     {
         "id": 2,
         "name": "Classic Beef Spaghetti",
@@ -88,8 +92,11 @@ recipes = [
         "fiber": 5,
         "sodium": 650,
         "servings": 4,
+        "estimated_cost": 320,
+        "diet_tags": ["High Protein", "Low Sugar", "High Fiber"],
         "description": "Classic spaghetti with savory ground beef and tomato sauce."
     },
+
     {
         "id": 3,
         "name": "Chicken Fried Rice",
@@ -105,8 +112,11 @@ recipes = [
         "fiber": 4,
         "sodium": 600,
         "servings": 3,
+        "estimated_cost": 190,
+        "diet_tags": ["High Protein", "Low Sugar"],
         "description": "Flavorful fried rice with chicken, vegetables, and egg."
     },
+
     {
         "id": 4,
         "name": "Hearty Beef Stew",
@@ -122,8 +132,11 @@ recipes = [
         "fiber": 6,
         "sodium": 480,
         "servings": 4,
+        "estimated_cost": 380,
+        "diet_tags": ["High Protein", "Low Carb", "Low Sugar", "High Fiber", "Low Sodium"],
         "description": "Hearty beef stew with potatoes, carrots, and onions."
     },
+
     {
         "id": 5,
         "name": "Vegetable Scrambled Eggs",
@@ -139,8 +152,11 @@ recipes = [
         "fiber": 2,
         "sodium": 300,
         "servings": 2,
+        "estimated_cost": 90,
+        "diet_tags": ["Low Carb", "Low Sugar", "Low Sodium"],
         "description": "Quick scrambled eggs with fresh tomatoes, onions, and peppers."
     },
+
     {
         "id": 6,
         "name": "Filipino Pork Adobo",
@@ -156,8 +172,11 @@ recipes = [
         "fiber": 1,
         "sodium": 700,
         "servings": 4,
+        "estimated_cost": 300,
+        "diet_tags": ["High Protein", "Low Carb", "Low Sugar"],
         "description": "Traditional Filipino pork adobo with garlic, vinegar, and soy sauce."
     },
+
     {
         "id": 7,
         "name": "Chicken Tinola",
@@ -173,8 +192,11 @@ recipes = [
         "fiber": 1,
         "sodium": 580,
         "servings": 4,
+        "estimated_cost": 280,
+        "diet_tags": ["High Protein", "Low Sugar"],
         "description": "Warm Filipino chicken soup with ginger, garlic, and rice."
     },
+
     {
         "id": 8,
         "name": "Banana Pancakes",
@@ -190,8 +212,11 @@ recipes = [
         "fiber": 3,
         "sodium": 280,
         "servings": 4,
+        "estimated_cost": 120,
+        "diet_tags": ["Low Sodium"],
         "description": "Soft and sweet banana pancakes perfect for breakfast."
     },
+
     {
         "id": 9,
         "name": "Fresh Chicken Salad",
@@ -207,8 +232,11 @@ recipes = [
         "fiber": 4,
         "sodium": 220,
         "servings": 2,
+        "estimated_cost": 220,
+        "diet_tags": ["High Protein", "Low Carb", "Low Sugar", "Low Sodium"],
         "description": "Fresh chicken salad with crisp vegetables and olive oil dressing."
     },
+
     {
         "id": 10,
         "name": "Grilled Cheese Sandwich",
@@ -224,8 +252,11 @@ recipes = [
         "fiber": 2,
         "sodium": 450,
         "servings": 2,
+        "estimated_cost": 120,
+        "diet_tags": ["Low Carb", "Low Sugar", "Low Sodium"],
         "description": "Crispy grilled cheese sandwich with melted cheese."
     },
+
     {
         "id": 11,
         "name": "Lemon Garlic Salmon",
@@ -241,8 +272,11 @@ recipes = [
         "fiber": 1,
         "sodium": 350,
         "servings": 2,
+        "estimated_cost": 520,
+        "diet_tags": ["High Protein", "Low Carb", "Low Sugar", "Low Sodium"],
         "description": "Pan-seared salmon with lemon, garlic, and butter."
     },
+
     {
         "id": 12,
         "name": "Creamy Mashed Potatoes",
@@ -258,8 +292,11 @@ recipes = [
         "fiber": 4,
         "sodium": 320,
         "servings": 4,
+        "estimated_cost": 160,
+        "diet_tags": ["Low Sugar", "Low Sodium"],
         "description": "Creamy mashed potatoes that make a perfect side dish."
     },
+
     {
         "id": 13,
         "name": "Crispy Fried Chicken",
@@ -275,8 +312,11 @@ recipes = [
         "fiber": 2,
         "sodium": 500,
         "servings": 4,
+        "estimated_cost": 290,
+        "diet_tags": ["High Protein", "Low Carb", "Low Sugar", "Low Sodium"],
         "description": "Crispy breaded chicken with a golden crunchy coating."
     },
+
     {
         "id": 14,
         "name": "Banana Honey Oatmeal",
@@ -292,8 +332,11 @@ recipes = [
         "fiber": 6,
         "sodium": 120,
         "servings": 2,
+        "estimated_cost": 110,
+        "diet_tags": ["High Fiber", "Low Sodium"],
         "description": "Warm oatmeal topped with banana, honey, and cinnamon."
     },
+
     {
         "id": 15,
         "name": "Garlic Butter Shrimp",
@@ -309,8 +352,11 @@ recipes = [
         "fiber": 1,
         "sodium": 410,
         "servings": 2,
+        "estimated_cost": 300,
+        "diet_tags": ["High Protein", "Low Carb", "Low Sugar", "Low Sodium"],
         "description": "Juicy garlic butter shrimp finished with fresh lemon."
     },
+
     {
         "id": 16,
         "name": "Coconut Chicken Rice",
@@ -326,8 +372,11 @@ recipes = [
         "fiber": 2,
         "sodium": 390,
         "servings": 4,
+        "estimated_cost": 260,
+        "diet_tags": ["High Protein", "Low Sugar", "Low Sodium"],
         "description": "Creamy coconut chicken rice with garlic and ginger."
     },
+
     {
         "id": 17,
         "name": "Creamy Tomato Soup",
@@ -343,8 +392,11 @@ recipes = [
         "fiber": 3,
         "sodium": 420,
         "servings": 4,
+        "estimated_cost": 170,
+        "diet_tags": ["Low Carb", "Low Sugar", "Low Sodium"],
         "description": "Smooth and creamy tomato soup with garlic and herbs."
     },
+
     {
         "id": 18,
         "name": "Classic Beef Burger",
@@ -360,8 +412,11 @@ recipes = [
         "fiber": 3,
         "sodium": 620,
         "servings": 1,
+        "estimated_cost": 180,
+        "diet_tags": ["High Protein", "Low Sugar"],
         "description": "Classic beef burger with lettuce, tomato, and melted cheese."
     },
+
     {
         "id": 19,
         "name": "Mango Banana Smoothie",
@@ -377,8 +432,11 @@ recipes = [
         "fiber": 4,
         "sodium": 80,
         "servings": 2,
+        "estimated_cost": 140,
+        "diet_tags": ["Low Sodium"],
         "description": "Refreshing mango and banana smoothie with creamy yogurt."
     },
+
     {
         "id": 20,
         "name": "Fudgy Chocolate Brownies",
@@ -394,8 +452,11 @@ recipes = [
         "fiber": 3,
         "sodium": 210,
         "servings": 8,
+        "estimated_cost": 240,
+        "diet_tags": ["Low Sodium"],
         "description": "Rich and fudgy chocolate brownies with chocolate pieces."
     }
+
 ]
 
 
