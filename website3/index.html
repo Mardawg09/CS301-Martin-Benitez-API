@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Diet Recipes</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+
+<header class="site-header">
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a
+            class="brand"
+            href="index.html"
+        >
+
+            <span class="brand-icon">
+                +
+            </span>
+
+            <span class="brand-text">
+
+                Healthy Plate
+
+                <small>
+                    Simple nutrition
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#recipes">
+                    Recipes
+                </a>
+            </li>
+
+            <li>
+                <a href="#nutrition">
+                    Nutrition
+                </a>
+            </li>
+
+            <li>
+                <a href="#filters">
+                    Diet Filters
+                </a>
+            </li>
+
+        </ul>
+
+
+        <a
+            href="#recipes"
+            class="nav-button"
+        >
+            Find healthy meals
+        </a>
+
+    </nav>
+
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+
+        <!-- LEFT -->
+
+        <div class="hero-content">
+
+            <div class="eyebrow">
+
+                <span></span>
+
+                SIMPLE HEALTHY EATING
+
+            </div>
+
+
+            <h1>
+
+                Eat smarter.
+
+                <br>
+
+                <strong>
+                    Feel better.
+                </strong>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Discover recipes based on protein,
+                carbohydrates, sugar, fiber and sodium
+                information.
+
+            </p>
+
+
+            <div class="hero-actions">
+
+                <a
+                    href="#recipes"
+                    class="primary-btn"
+                >
+                    Explore healthy recipes
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="#filters"
+                    class="text-btn"
+                >
+                    Choose diet
+                </a>
+
+            </div>
+
+
+
+            <div class="quick-title">
+                Find your meal
+            </div>
+
+
+            <div class="quick-filters">
+
+                <span>
+                    High Protein
+                </span>
+
+                <span>
+                    Low Carb
+                </span>
+
+                <span>
+                    Low Sugar
+                </span>
+
+                <span>
+                    High Fiber
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RIGHT WITHOUT IMAGE -->
+
+        <div class="hero-panel">
+
+            <div class="panel-label">
+                NUTRITION FIRST
+            </div>
+
+
+            <h2>
+
+                Balance your
+                <br>
+                everyday meals.
+
+            </h2>
+
+
+            <p>
+
+                Use the nutritional information in each
+                recipe to quickly compare meals and find
+                options that match your preferences.
+
+            </p>
+
+
+
+            <div
+                class="nutrition-highlight"
+                id="nutrition"
+            >
+
+                <div>
+
+                    <span>
+                        Protein
+                    </span>
+
+                    <strong>
+                        25g
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Carbs
+                    </span>
+
+                    <strong>
+                        20g
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Fiber
+                    </span>
+
+                    <strong>
+                        6g
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="featured-mini">
+
+                <div class="featured-mini-top">
+
+                    <span>
+                        Healthy Pick
+                    </span>
+
+                    <span>
+                        ★ 4.8
+                    </span>
+
+                </div>
+
+
+                <h3>
+                    Balanced meal choice
+                </h3>
+
+
+                <div class="mini-value">
+                    30g
+                </div>
+
+
+                <small>
+                    Example protein serving
+                </small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</header>
+
+
+
+<main>
+
+
+    <!-- SEARCH -->
+
+    <section
+        class="control-section"
+        id="filters"
+    >
+
+        <div class="search-card">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search healthy recipes..."
+            >
+
+
+            <button
+                type="button"
+                class="clear-btn"
+                onclick="clearSearch()"
+            >
+                Clear search
+            </button>
+
+        </div>
+
+
+
+        <!-- DIET FILTERS -->
+
+        <div class="filters">
+
+            <button
+                class="filter-btn active"
+                data-diet="all"
+            >
+                All
+            </button>
+
+
+            <button
+                class="filter-btn"
+                data-diet="high-protein"
+            >
+                High Protein
+            </button>
+
+
+            <button
+                class="filter-btn"
+                data-diet="low-carb"
+            >
+                Low Carb
+            </button>
+
+
+            <button
+                class="filter-btn"
+                data-diet="low-sugar"
+            >
+                Low Sugar
+            </button>
+
+
+            <button
+                class="filter-btn"
+                data-diet="high-fiber"
+            >
+                High Fiber
+            </button>
+
+
+            <button
+                class="filter-btn"
+                data-diet="low-sodium"
+            >
+                Low Sodium
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- RECIPES -->
+
+    <section
+        class="recipes-section"
+        id="recipes"
+    >
+
+        <div class="section-heading">
+
+            <div>
+
+                <p class="section-kicker">
+                    HEALTHY RECIPES
+                </p>
+
+
+                <h2>
+
+                    Simple ingredients,
+
+                    <span>
+                        smarter choices
+                    </span>
+
+                </h2>
+
+
+                <p>
+
+                    Compare nutrition values and discover
+                    recipes that match your preferred diet.
+
+                </p>
+
+            </div>
+
+
+            <button
+                class="show-all-btn"
+                onclick="clearSearch()"
+            >
+                Browse all recipes →
+            </button>
+
+        </div>
+
+
+
+        <div
+            id="recipeList"
+            class="recipe-list loading-state"
+        >
+            Loading recipes...
+        </div>
+
+    </section>
+
+</main>
+
+
+
+<!-- MODAL -->
+
+<div
+    id="modalOverlay"
+    class="modal-overlay"
+>
+
+    <div
+        id="modalCard"
+        class="modal-card"
+    >
+
+        <button
+            class="modal-close"
+            onclick="closeModal()"
+        >
+            ×
+        </button>
+
+
+        <div id="modalBody"></div>
+
+    </div>
+
+</div>
+
+
+
+<footer>
+
+    <div class="footer-content">
+
+        <strong>
+            Healthy Plate
+        </strong>
+
+        <span>
+            Nutrition-focused recipes powered by the Simple Recipe API.
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+></script>
+
+<script src="app.js"></script>
+
+
+</body>
+</html>
