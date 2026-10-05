@@ -30,13 +30,23 @@ app.add_middleware(
 #==============================
 
 class Recipe(BaseModel):
-    id: int
-    name: str = Field(min_length=1)
-    ingredients: list[str]
-    difficulty: Literal["Easy", "Medium", "Hard"]
-    steps: list[str]
+    id: int = Field(gt=0)
+
+    name: str = Field(min_length=1, max_length=100)
+
+    ingredients: list[str] = Field(min_length=1)
+
+    difficulty: Literal[
+        "Easy",
+        "Medium",
+        "Hard"
+    ]
+
+    steps: list[str] = Field(min_length=1)
+
     rating: float = Field(ge=0, le=5)
-    type: Literal[
+
+    cuisine: Literal[
         "American",
         "Filipino",
         "Italian",
@@ -45,14 +55,22 @@ class Recipe(BaseModel):
         "Spanish",
         "Southeast Asian"
     ]
-    carbs: int = Field(ge=0)
-    protein: int = Field(ge=0)
-    allergen: list[str]
-    sugar: int = Field(ge=0)
-    fiber: int = Field(ge=0)
-    sodium: int = Field(ge=0)
+
+    carbs: float = Field(ge=0)
+    protein: float = Field(ge=0)
+
+    allergens: list[str] = Field(default_factory=list)
+
+    sugar: float = Field(ge=0)
+    fiber: float = Field(ge=0)
+    sodium: float = Field(ge=0)
+
     servings: int = Field(gt=0)
-    description: str = Field(min_length=10, max_length=500)
+
+    description: str = Field(
+        min_length=10,
+        max_length=500
+    )
 
 # Recipe DATA
 recipes = [
