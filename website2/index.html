@@ -9,7 +9,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Budget Recipes</title>
+    <title>Budget Recipe Generator</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -18,7 +18,7 @@
 
 
 <!-- =====================================
-     HEADER
+     NAVBAR
 ===================================== -->
 
 <header class="site-header">
@@ -26,32 +26,33 @@
     <nav class="navbar">
 
         <a class="brand" href="index.html">
-            <span class="brand-icon">₱</span>
+
+            <span class="brand-icon">
+                ₱
+            </span>
 
             <span class="brand-text">
                 Budget Plate
-                <small>Eat well. Spend less.</small>
+
+                <small>
+                    Eat well. Spend less.
+                </small>
             </span>
+
         </a>
 
 
         <ul class="nav-links">
 
             <li>
-                <a href="#recipes">
-                    Recipes
+                <a href="#generator">
+                    Generator
                 </a>
             </li>
 
             <li>
-                <a href="#budget">
-                    Budget Meals
-                </a>
-            </li>
-
-            <li>
-                <a href="#tips">
-                    Savings Tips
+                <a href="#how">
+                    How it works
                 </a>
             </li>
 
@@ -59,10 +60,10 @@
 
 
         <a
-            href="#recipes"
+            href="#generator"
             class="nav-button"
         >
-            Find a meal
+            Generate a meal
         </a>
 
     </nav>
@@ -75,77 +76,86 @@
 
     <section class="hero">
 
-        <!-- LEFT -->
-
         <div class="hero-content">
 
             <div class="eyebrow">
+
                 <span></span>
-                Affordable everyday cooking
+
+                SMART BUDGET COOKING
+
             </div>
 
 
             <h1>
-                Cook brilliantly.
+
+                Set your budget.
+
                 <br>
+
                 <strong>
-                    Spend thoughtfully.
+                    We'll find the meal.
                 </strong>
+
             </h1>
 
 
             <p class="hero-description">
-                Find delicious recipes made with common
-                ingredients while keeping your food budget
-                under control.
+
+                Enter how much you want to spend and how many
+                people you need to feed. The generator will
+                search the recipe API and suggest a meal that
+                fits your budget.
+
             </p>
 
 
             <div class="hero-actions">
 
                 <a
-                    href="#recipes"
+                    href="#generator"
                     class="primary-btn"
                 >
-                    Explore budget recipes
-                    <span>→</span>
+                    Start generating
+
+                    <span>
+                        →
+                    </span>
+
                 </a>
 
 
                 <a
-                    href="#budget"
+                    href="#how"
                     class="text-btn"
                 >
-                    Set your budget
+                    How it works
                 </a>
 
             </div>
 
 
-
-            <!-- QUICK INFO -->
-
             <div class="quick-title">
-                Find your dinner
+                Designed for
             </div>
 
 
             <div class="quick-filters">
 
                 <span>
-                    Under ₱200
+                    Affordable meals
                 </span>
 
                 <span>
-                    Serves 4
+                    Family meals
                 </span>
 
                 <span>
-                    Easy recipes
+                    Students
                 </span>
 
                 <span>
-                    Budget friendly
+                    Easy cooking
                 </span>
 
             </div>
@@ -154,12 +164,12 @@
 
 
 
-        <!-- RIGHT / NO IMAGE -->
+        <!-- RIGHT PANEL -->
 
         <div class="hero-panel">
 
             <div class="panel-label">
-                SMART SAVINGS
+                BUDGET GENERATOR
             </div>
 
 
@@ -171,78 +181,69 @@
 
 
             <p>
-                Choose meals based on your available budget
-                and discover affordable recipes for the whole
-                family.
+                Your available budget is compared with the
+                estimated recipe cost and number of servings.
             </p>
 
 
-            <div class="budget-stat">
+            <div class="budget-example">
 
                 <div>
+
                     <span>
-                        Example budget
+                        Budget
                     </span>
 
                     <strong>
-                        ₱200
+                        ₱300
                     </strong>
+
                 </div>
 
 
                 <div>
+
                     <span>
-                        Servings
+                        People
                     </span>
 
                     <strong>
                         4
                     </strong>
+
                 </div>
 
 
                 <div>
+
                     <span>
-                        Cost / serving
+                        Max / Person
                     </span>
 
                     <strong>
-                        ₱50
+                        ₱75
                     </strong>
+
                 </div>
 
             </div>
 
 
+            <div class="example-card">
 
-            <div class="featured-mini">
-
-                <div class="featured-mini-top">
-
-                    <span>
-                        Tonight's Pick
-                    </span>
-
-                    <span>
-                        ★ 4.8
-                    </span>
-
-                </div>
-
+                <span class="example-label">
+                    Example
+                </span>
 
                 <h3>
-                    Affordable family dinner
+                    ₱300 budget for 4 people
                 </h3>
 
-
-                <div class="mini-price">
-                    ₱180
-                </div>
-
-
-                <small>
-                    Estimated total recipe cost
-                </small>
+                <p>
+                    The generator looks for recipes that
+                    can serve four people without exceeding
+                    ₱300.
+                </p>
 
             </div>
 
@@ -262,63 +263,237 @@
 
 
     <!-- =====================================
-         SEARCH / BUDGET
+         GENERATOR
     ===================================== -->
 
     <section
-        class="control-section"
-        id="budget"
+        class="generator-section"
+        id="generator"
     >
 
-        <div class="search-card">
+        <div class="section-heading">
 
-            <div>
+            <p class="section-kicker">
+                BUDGET RECIPE GENERATOR
+            </p>
 
-                <span class="input-label">
-                    Search recipes
-                </span>
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Recipe, ingredient or cuisine..."
-                    autocomplete="off"
+            <h2>
+                What's your
+                <span>budget?</span>
+            </h2>
+
+
+            <p>
+                Fill in the information below and let the
+                application find a suitable recipe.
+            </p>
+
+        </div>
+
+
+
+        <div class="generator-layout">
+
+
+            <!-- FORM -->
+
+            <div class="generator-card">
+
+                <h3>
+                    Your meal budget
+                </h3>
+
+
+                <p class="generator-description">
+                    Tell us how much you want to spend.
+                </p>
+
+
+
+                <!-- BUDGET -->
+
+                <div class="form-group">
+
+                    <label for="budgetInput">
+                        Maximum Budget
+                    </label>
+
+
+                    <div class="money-input">
+
+                        <span>
+                            ₱
+                        </span>
+
+                        <input
+                            type="number"
+                            id="budgetInput"
+                            placeholder="300"
+                            min="1"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PEOPLE -->
+
+                <div class="form-group">
+
+                    <label for="peopleInput">
+                        Number of People
+                    </label>
+
+
+                    <input
+                        type="number"
+                        id="peopleInput"
+                        value="2"
+                        min="1"
+                        max="20"
+                    >
+
+                </div>
+
+
+
+                <!-- CUISINE -->
+
+                <div class="form-group">
+
+                    <label for="cuisineInput">
+                        Cuisine
+                    </label>
+
+
+                    <select id="cuisineInput">
+
+                        <option value="all">
+                            Any Cuisine
+                        </option>
+
+                        <option value="Filipino">
+                            Filipino
+                        </option>
+
+                        <option value="American">
+                            American
+                        </option>
+
+                        <option value="Italian">
+                            Italian
+                        </option>
+
+                        <option value="Chinese">
+                            Chinese
+                        </option>
+
+                        <option value="Mediterranean">
+                            Mediterranean
+                        </option>
+
+                        <option value="Spanish">
+                            Spanish
+                        </option>
+
+                        <option value="Southeast Asian">
+                            Southeast Asian
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- DIFFICULTY -->
+
+                <div class="form-group">
+
+                    <label for="difficultyInput">
+                        Difficulty
+                    </label>
+
+
+                    <select id="difficultyInput">
+
+                        <option value="all">
+                            Any Difficulty
+                        </option>
+
+                        <option value="Easy">
+                            Easy
+                        </option>
+
+                        <option value="Medium">
+                            Medium
+                        </option>
+
+                        <option value="Hard">
+                            Hard
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="button"
+                    id="generateButton"
+                    class="generate-button"
+                    onclick="generateBudgetRecipe()"
                 >
+                    Generate Meal
+                    <span>→</span>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="reset-button"
+                    onclick="resetGenerator()"
+                >
+                    Reset
+                </button>
 
             </div>
 
 
-            <div>
 
-                <span class="input-label">
-                    Maximum budget
-                </span>
+            <!-- RESULT -->
 
-                <input
-                    type="number"
-                    id="budgetInput"
-                    placeholder="Example: 300"
-                    min="0"
-                >
+            <div
+                id="generatorResult"
+                class="result-panel"
+            >
+
+                <div class="empty-result">
+
+                    <div class="result-icon">
+                        ₱
+                    </div>
+
+
+                    <h3>
+                        Your meal will appear here
+                    </h3>
+
+
+                    <p>
+                        Enter your budget and number of people,
+                        then press Generate Meal.
+                    </p>
+
+                </div>
 
             </div>
-
-
-            <button
-                type="button"
-                onclick="applyFiltersAndRender()"
-            >
-                Find recipes
-            </button>
-
-
-            <button
-                type="button"
-                class="clear-btn"
-                onclick="clearSearch()"
-            >
-                Clear
-            </button>
 
         </div>
 
@@ -327,65 +502,98 @@
 
 
     <!-- =====================================
-         FEATURED HEADING
+         HOW IT WORKS
     ===================================== -->
 
     <section
-        class="recipes-section"
-        id="recipes"
+        class="how-section"
+        id="how"
     >
 
         <div class="section-heading">
 
-            <div>
-
-                <p class="section-kicker">
-                    FEATURED RECIPES
-                </p>
-
-                <h2>
-                    Big flavor,
-                    <span>
-                        small price tag
-                    </span>
-                </h2>
-
-                <p>
-                    Browse affordable meals and compare
-                    their estimated costs before you cook.
-                </p>
-
-            </div>
+            <p class="section-kicker">
+                HOW IT WORKS
+            </p>
 
 
-            <button
-                class="show-all-btn"
-                onclick="clearSearch()"
-            >
-                Browse all recipes →
-            </button>
+            <h2>
+                Three simple
+                <span>steps</span>
+            </h2>
 
         </div>
 
 
+        <div class="steps-grid">
 
-        <!-- RECIPE API CONTENT -->
 
-        <div
-            id="recipeList"
-            class="recipe-list loading-state"
-        >
-            Loading recipes...
+            <article class="step-card">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <h3>
+                    Set your budget
+                </h3>
+
+                <p>
+                    Enter the maximum amount you want
+                    to spend on the meal.
+                </p>
+
+            </article>
+
+
+
+            <article class="step-card">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <h3>
+                    Tell us your group size
+                </h3>
+
+                <p>
+                    Enter how many people will be eating.
+                    The cost is automatically adjusted.
+                </p>
+
+            </article>
+
+
+
+            <article class="step-card">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <h3>
+                    Generate your meal
+                </h3>
+
+                <p>
+                    The application searches the API and
+                    gives you a recipe that fits your budget.
+                </p>
+
+            </article>
+
         </div>
 
     </section>
+
 
 </main>
 
 
 
 <!-- =====================================
-     MODAL
+     RECIPE DETAILS MODAL
 ===================================== -->
 
 <div
@@ -396,8 +604,6 @@
     <div
         id="modalCard"
         class="modal-card"
-        role="dialog"
-        aria-modal="true"
     >
 
         <button
@@ -416,6 +622,10 @@
 
 
 
+<!-- =====================================
+     FOOTER
+===================================== -->
+
 <footer>
 
     <div class="footer-content">
@@ -425,7 +635,7 @@
         </strong>
 
         <span>
-            Affordable recipes powered by the Simple Recipe API.
+            Budget Recipe Generator powered by the Simple Recipe API.
         </span>
 
     </div>
@@ -434,12 +644,8 @@
 
 
 
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
-></script>
-
 <script src="app.js"></script>
 
-
 </body>
+
 </html>
