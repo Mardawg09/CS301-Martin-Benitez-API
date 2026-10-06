@@ -10,7 +10,7 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Diet Recipes</title>
+    <title>Diet Meal Planner</title>
 
     <link
         rel="stylesheet"
@@ -22,6 +22,10 @@
 <body>
 
 
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header class="site-header">
 
 
@@ -30,20 +34,21 @@
     <nav class="navbar">
 
         <a
-            class="brand"
             href="index.html"
+            class="brand"
         >
 
             <span class="brand-icon">
                 +
             </span>
 
+
             <span class="brand-text">
 
                 Healthy Plate
 
                 <small>
-                    Simple nutrition
+                    Diet Meal Planner
                 </small>
 
             </span>
@@ -51,41 +56,39 @@
         </a>
 
 
+
         <ul class="nav-links">
 
             <li>
-                <a href="#recipes">
-                    Recipes
+                <a href="#planner">
+                    Planner
                 </a>
             </li>
 
             <li>
-                <a href="#nutrition">
-                    Nutrition
-                </a>
-            </li>
-
-            <li>
-                <a href="#filters">
-                    Diet Filters
+                <a href="#how">
+                    How It Works
                 </a>
             </li>
 
         </ul>
 
 
+
         <a
-            href="#recipes"
+            href="#planner"
             class="nav-button"
         >
-            Find healthy meals
+            Plan my meals
         </a>
 
     </nav>
 
 
 
-    <!-- HERO -->
+    <!-- =========================================
+         HERO
+    ========================================= -->
 
     <section class="hero">
 
@@ -98,19 +101,19 @@
 
                 <span></span>
 
-                SIMPLE HEALTHY EATING
+                SIMPLE MEAL PLANNING
 
             </div>
 
 
             <h1>
 
-                Eat smarter.
+                Choose your goal.
 
                 <br>
 
                 <strong>
-                    Feel better.
+                    We'll plan your meals.
                 </strong>
 
             </h1>
@@ -118,20 +121,25 @@
 
             <p class="hero-description">
 
-                Discover recipes based on protein,
-                carbohydrates, sugar, fiber and sodium
-                information.
+                Select your preferred nutrition style,
+                number of meals, cuisine, difficulty,
+                and allergens to avoid.
+
+                The planner will search the same Recipe API
+                and build a meal plan using matching recipes.
 
             </p>
+
 
 
             <div class="hero-actions">
 
                 <a
-                    href="#recipes"
+                    href="#planner"
                     class="primary-btn"
                 >
-                    Explore healthy recipes
+
+                    Build my meal plan
 
                     <span>
                         →
@@ -141,10 +149,10 @@
 
 
                 <a
-                    href="#filters"
+                    href="#how"
                     class="text-btn"
                 >
-                    Choose diet
+                    How it works
                 </a>
 
             </div>
@@ -152,7 +160,7 @@
 
 
             <div class="quick-title">
-                Find your meal
+                Available preferences
             </div>
 
 
@@ -174,44 +182,48 @@
                     High Fiber
                 </span>
 
+                <span>
+                    Low Sodium
+                </span>
+
             </div>
 
         </div>
 
 
 
-        <!-- RIGHT WITHOUT IMAGE -->
+        <!-- =========================================
+             HERO RIGHT PANEL
+        ========================================= -->
 
         <div class="hero-panel">
 
             <div class="panel-label">
-                NUTRITION FIRST
+                DAILY PLANNER
             </div>
 
 
             <h2>
 
-                Balance your
+                Build meals around
                 <br>
-                everyday meals.
+                your preferences.
 
             </h2>
 
 
             <p>
 
-                Use the nutritional information in each
-                recipe to quickly compare meals and find
-                options that match your preferences.
+                The planner compares the nutrition information
+                of the recipes and finds meals that satisfy
+                your selected filter.
 
             </p>
 
 
 
-            <div
-                class="nutrition-highlight"
-                id="nutrition"
-            >
+            <div class="nutrition-example">
+
 
                 <div>
 
@@ -220,7 +232,7 @@
                     </span>
 
                     <strong>
-                        25g
+                        25g+
                     </strong>
 
                 </div>
@@ -233,7 +245,7 @@
                     </span>
 
                     <strong>
-                        20g
+                        ≤ 30g
                     </strong>
 
                 </div>
@@ -242,47 +254,40 @@
                 <div>
 
                     <span>
-                        Fiber
+                        Sugar
                     </span>
 
                     <strong>
-                        6g
+                        ≤ 10g
                     </strong>
 
                 </div>
+
 
             </div>
 
 
 
-            <div class="featured-mini">
+            <div class="example-card">
 
-                <div class="featured-mini-top">
-
-                    <span>
-                        Healthy Pick
-                    </span>
-
-                    <span>
-                        ★ 4.8
-                    </span>
-
-                </div>
+                <span class="example-label">
+                    EXAMPLE PLAN
+                </span>
 
 
                 <h3>
-                    Balanced meal choice
+                    3 High Protein Meals
                 </h3>
 
 
-                <div class="mini-value">
-                    30g
-                </div>
+                <p>
 
+                    The planner searches the recipe data
+                    for meals containing at least 20g
+                    of protein based on the project's
+                    filtering rule.
 
-                <small>
-                    Example protein serving
-                </small>
+                </p>
 
             </div>
 
@@ -294,87 +299,341 @@
 
 
 
+<!-- =========================================
+     MAIN
+========================================= -->
+
 <main>
 
 
-    <!-- SEARCH -->
+    <!-- =========================================
+         PLANNER
+    ========================================= -->
 
     <section
-        class="control-section"
-        id="filters"
+        class="planner-section"
+        id="planner"
     >
 
-        <div class="search-card">
 
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search healthy recipes..."
-            >
+        <div class="section-heading">
+
+            <p class="section-kicker">
+                DIET MEAL PLANNER
+            </p>
 
 
-            <button
-                type="button"
-                class="clear-btn"
-                onclick="clearSearch()"
-            >
-                Clear search
-            </button>
+            <h2>
+
+                Create your
+
+                <span>
+                    meal plan
+                </span>
+
+            </h2>
+
+
+            <p>
+
+                Choose your meal preferences and the
+                planner will select matching recipes
+                from the API.
+
+            </p>
 
         </div>
 
 
 
-        <!-- DIET FILTERS -->
+        <div class="planner-layout">
 
-        <div class="filters">
 
-            <button
-                class="filter-btn active"
-                data-diet="all"
+            <!-- =====================================
+                 PLANNER FORM
+            ====================================== -->
+
+            <div class="planner-card">
+
+                <h3>
+                    Meal preferences
+                </h3>
+
+
+                <p class="planner-description">
+
+                    Fill in the options below to create
+                    your meal plan.
+
+                </p>
+
+
+
+                <!-- DIET GOAL -->
+
+                <div class="form-group">
+
+                    <label for="dietInput">
+                        Diet Preference
+                    </label>
+
+
+                    <select id="dietInput">
+
+                        <option value="all">
+                            Balanced / Any
+                        </option>
+
+                        <option value="high-protein">
+                            High Protein
+                        </option>
+
+                        <option value="low-carb">
+                            Low Carb
+                        </option>
+
+                        <option value="low-sugar">
+                            Low Sugar
+                        </option>
+
+                        <option value="high-fiber">
+                            High Fiber
+                        </option>
+
+                        <option value="low-sodium">
+                            Low Sodium
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- NUMBER OF MEALS -->
+
+                <div class="form-group">
+
+                    <label for="mealCountInput">
+                        Number of Meals
+                    </label>
+
+
+                    <select id="mealCountInput">
+
+                        <option value="1">
+                            1 Meal
+                        </option>
+
+                        <option value="2">
+                            2 Meals
+                        </option>
+
+                        <option
+                            value="3"
+                            selected
+                        >
+                            3 Meals
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- CUISINE -->
+
+                <div class="form-group">
+
+                    <label for="cuisineInput">
+                        Cuisine
+                    </label>
+
+
+                    <select id="cuisineInput">
+
+                        <option value="all">
+                            Any Cuisine
+                        </option>
+
+                        <option value="Filipino">
+                            Filipino
+                        </option>
+
+                        <option value="American">
+                            American
+                        </option>
+
+                        <option value="Italian">
+                            Italian
+                        </option>
+
+                        <option value="Chinese">
+                            Chinese
+                        </option>
+
+                        <option value="Mediterranean">
+                            Mediterranean
+                        </option>
+
+                        <option value="Spanish">
+                            Spanish
+                        </option>
+
+                        <option value="Southeast Asian">
+                            Southeast Asian
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- DIFFICULTY -->
+
+                <div class="form-group">
+
+                    <label for="difficultyInput">
+                        Difficulty
+                    </label>
+
+
+                    <select id="difficultyInput">
+
+                        <option value="all">
+                            Any Difficulty
+                        </option>
+
+                        <option value="Easy">
+                            Easy
+                        </option>
+
+                        <option value="Medium">
+                            Medium
+                        </option>
+
+                        <option value="Hard">
+                            Hard
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- ALLERGEN -->
+
+                <div class="form-group">
+
+                    <label for="allergenInput">
+                        Avoid Allergen
+                    </label>
+
+
+                    <select id="allergenInput">
+
+                        <option value="none">
+                            None
+                        </option>
+
+                        <option value="milk">
+                            Milk
+                        </option>
+
+                        <option value="egg">
+                            Egg
+                        </option>
+
+                        <option value="soy">
+                            Soy
+                        </option>
+
+                        <option value="wheat">
+                            Wheat
+                        </option>
+
+                        <option value="fish">
+                            Fish
+                        </option>
+
+                        <option value="shellfish">
+                            Shellfish
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- GENERATE -->
+
+                <button
+                    type="button"
+                    class="generate-button"
+                    onclick="generateMealPlan()"
+                >
+
+                    Generate Meal Plan
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+
+                <!-- RESET -->
+
+                <button
+                    type="button"
+                    class="reset-button"
+                    onclick="resetPlanner()"
+                >
+
+                    Reset Planner
+
+                </button>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 RESULT
+            ====================================== -->
+
+            <div
+                id="plannerResult"
+                class="planner-result"
             >
-                All
-            </button>
+
+                <div class="empty-result">
+
+                    <div class="result-icon">
+                        +
+                    </div>
 
 
-            <button
-                class="filter-btn"
-                data-diet="high-protein"
-            >
-                High Protein
-            </button>
+                    <h3>
+                        Your meal plan will appear here
+                    </h3>
 
 
-            <button
-                class="filter-btn"
-                data-diet="low-carb"
-            >
-                Low Carb
-            </button>
+                    <p>
 
+                        Choose your preferences and press
+                        Generate Meal Plan.
 
-            <button
-                class="filter-btn"
-                data-diet="low-sugar"
-            >
-                Low Sugar
-            </button>
+                    </p>
 
+                </div>
 
-            <button
-                class="filter-btn"
-                data-diet="high-fiber"
-            >
-                High Fiber
-            </button>
-
-
-            <button
-                class="filter-btn"
-                data-diet="low-sodium"
-            >
-                Low Sodium
-            </button>
+            </div>
 
         </div>
 
@@ -382,59 +641,107 @@
 
 
 
-    <!-- RECIPES -->
+    <!-- =========================================
+         HOW IT WORKS
+    ========================================= -->
 
     <section
-        class="recipes-section"
-        id="recipes"
+        class="how-section"
+        id="how"
     >
 
         <div class="section-heading">
 
-            <div>
-
-                <p class="section-kicker">
-                    HEALTHY RECIPES
-                </p>
+            <p class="section-kicker">
+                HOW IT WORKS
+            </p>
 
 
-                <h2>
+            <h2>
 
-                    Simple ingredients,
+                Plan meals in
 
-                    <span>
-                        smarter choices
-                    </span>
+                <span>
+                    three steps
+                </span>
 
-                </h2>
-
-
-                <p>
-
-                    Compare nutrition values and discover
-                    recipes that match your preferred diet.
-
-                </p>
-
-            </div>
-
-
-            <button
-                class="show-all-btn"
-                onclick="clearSearch()"
-            >
-                Browse all recipes →
-            </button>
+            </h2>
 
         </div>
 
 
 
-        <div
-            id="recipeList"
-            class="recipe-list loading-state"
-        >
-            Loading recipes...
+        <div class="steps-grid">
+
+
+            <article class="step-card">
+
+                <div class="step-number">
+                    01
+                </div>
+
+
+                <h3>
+                    Choose your preference
+                </h3>
+
+
+                <p>
+
+                    Select a nutrition preference such as
+                    High Protein, Low Carb, or Low Sodium.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="step-card">
+
+                <div class="step-number">
+                    02
+                </div>
+
+
+                <h3>
+                    Add your preferences
+                </h3>
+
+
+                <p>
+
+                    Choose the number of meals, cuisine,
+                    difficulty, and an allergen to avoid.
+
+                </p>
+
+            </article>
+
+
+
+            <article class="step-card">
+
+                <div class="step-number">
+                    03
+                </div>
+
+
+                <h3>
+                    Generate your plan
+                </h3>
+
+
+                <p>
+
+                    The application searches the Recipe API
+                    and creates a plan from matching recipes.
+
+                </p>
+
+            </article>
+
+
         </div>
 
     </section>
@@ -443,7 +750,9 @@
 
 
 
-<!-- MODAL -->
+<!-- =========================================
+     RECIPE MODAL
+========================================= -->
 
 <div
     id="modalOverlay"
@@ -456,6 +765,7 @@
     >
 
         <button
+            type="button"
             class="modal-close"
             onclick="closeModal()"
         >
@@ -471,6 +781,10 @@
 
 
 
+<!-- =========================================
+     FOOTER
+========================================= -->
+
 <footer>
 
     <div class="footer-content">
@@ -479,8 +793,9 @@
             Healthy Plate
         </strong>
 
+
         <span>
-            Nutrition-focused recipes powered by the Simple Recipe API.
+            Diet Meal Planner powered by the Simple Recipe API.
         </span>
 
     </div>
@@ -488,12 +803,9 @@
 </footer>
 
 
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
-></script>
 
 <script src="app.js"></script>
 
-
 </body>
+
 </html>
