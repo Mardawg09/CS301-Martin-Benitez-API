@@ -1,26 +1,44 @@
+/* =========================================
+   CONFIGURATION
+========================================= */
+
 const API_URL =
     "https://cs-301-martin-benitez-api.vercel.app";
+
 
 const API_KEY =
     "recipe-api-key-123";
 
+
 const FETCH_OPTIONS = {
+
     headers: {
+
         "x-api-key": API_KEY
+
     }
+
 };
+
+
+
+/* =========================================
+   DATA
+========================================= */
 
 let recipes = [];
 
+let matchingRecipes = [];
 
-/* =========================
-   LOAD RECIPES
-========================= */
+let currentRecipe = null;
+
+
+
+/* =========================================
+   LOAD RECIPES FROM API
+========================================= */
 
 async function loadRecipes() {
-
-    const container =
-        document.getElementById("recipeList");
 
     try {
 
@@ -29,320 +47,1120 @@ async function loadRecipes() {
             FETCH_OPTIONS
         );
 
+
         if (!response.ok) {
-            throw new Error("Unable to load recipes");
+
+            throw new Error(
+                "Unable to load recipes."
+            );
+
         }
 
-        const data = await response.json();
 
-        recipes = data.recipes || [];
+        const data =
+            await response.json();
 
-        applyFiltersAndRender();
 
-    } catch (error) {
+        recipes =
+            data.recipes || [];
+
+
+        console.log(
+            `${recipes.length} recipes loaded.`
+        );
+
+    }
+
+    catch (error) {
 
         console.error(error);
 
-        container.innerHTML =
-            "Unable to connect to the API.";
+
+        showGeneratorMessage(
+            "Unable to connect to the Recipe API."
+        );
+
     }
+
 }
 
 
-/* =========================
-   FILTER
-========================= */
 
-function applyFiltersAndRender() {
+/* =========================================
+   GENERATE BUDGET RECIPE
+========================================= */
 
-    const search =
+function generateBudgetRecipe() {
+
+    const budget =
+        Number(
+            document
+                .getElementById("budgetInput")
+                .value
+        );
+
+
+    const people =
+        Number(
+            document
+                .getElementById("peopleInput")
+                .value
+        );
+
+
+    const cuisine =
         document
-            .getElementById("searchInput")
-            .value
-            .trim()
-            .toLowerCase();
-
-    const budgetValue =
-        document
-            .getElementById("budgetInput")
+            .getElementById("cuisineInput")
             .value;
 
-    const maxBudget =
-        budgetValue
-            ? Number(budgetValue)
-            : Infinity;
+
+    const difficulty =
+        document
+            .getElementById("difficultyInput")
+            .value;
 
 
-    const results = recipes.filter(recipe => {
 
-        const text = [
-            recipe.name,
-            recipe.type,
-            recipe.description,
-            ...(recipe.ingredients || [])
-        ]
-        .join(" ")
-        .toLowerCase();
+    /* =====================================
+       VALIDATION
+    ===================================== */
 
+    if (!budget || budget <= 0) {
 
-        const matchesSearch =
-            text.includes(search);
-
-
-        const cost =
-            Number(recipe.estimated_cost || 0);
-
-
-        const matchesBudget =
-            cost <= maxBudget;
-
-
-        return matchesSearch && matchesBudget;
-    });
-
-
-    displayRecipes(results);
-}
-
-
-/* =========================
-   DISPLAY
-========================= */
-
-function displayRecipes(data) {
-
-    const container =
-        document.getElementById("recipeList");
-
-    container.classList.remove("loading-state");
-
-    container.innerHTML = "";
-
-
-    if (!data.length) {
-
-        container.innerHTML =
-            "No budget recipes found.";
+        showGeneratorMessage(
+            "Please enter a valid budget."
+        );
 
         return;
+
     }
 
 
-    data.forEach(recipe => {
+    if (!people || people <= 0) {
 
-        const card =
-            document.createElement("article");
+        showGeneratorMessage(
+            "Please enter the number of people."
+        );
 
-        card.className = "recipe-card";
+        return;
+
+    }
 
 
-        card.innerHTML = `
+    if (!recipes.length) {
 
-            <div class="recipe-type">
+        showGeneratorMessage(
+            "Recipes are still loading. Please try again."
+        );
+
+        return;
+
+    }
+
+
+
+    /* =====================================
+       FILTER RECIPES
+    ===================================== */
+
+    matchingRecipes =
+        recipes.filter(recipe => {
+
+
+            /* ---------------------------------
+               Estimated Cost
+            --------------------------------- */
+
+            const baseCost =
+                Number(
+                    recipe.estimated_cost
+                );
+
+
+            const baseServings =
+                Number(
+                    recipe.servings
+                );
+
+
+            /*
+                If estimated_cost does not exist,
+                do not include the recipe.
+            */
+
+            if (
+                !Number.isFinite(baseCost) ||
+                !Number.isFinite(baseServings) ||
+                baseServings <= 0
+            ) {
+
+                return false;
+
+            }
+
+
+
+            /* ---------------------------------
+               Adjust Cost Based on People
+            --------------------------------- */
+
+            const adjustedCost =
+                calculateAdjustedCost(
+                    baseCost,
+                    baseServings,
+                    people
+                );
+
+
+            /* ---------------------------------
+               Budget Check
+            --------------------------------- */
+
+            const withinBudget =
+                adjustedCost <= budget;
+
+
+
+            /* ---------------------------------
+               Cuisine Check
+            --------------------------------- */
+
+            const matchesCuisine =
+
+                cuisine === "all" ||
+
+                recipe.type === cuisine;
+
+
+
+            /* ---------------------------------
+               Difficulty Check
+            --------------------------------- */
+
+            const matchesDifficulty =
+
+                difficulty === "all" ||
+
+                recipe.difficulty === difficulty;
+
+
+
+            return (
+
+                withinBudget &&
+
+                matchesCuisine &&
+
+                matchesDifficulty
+
+            );
+
+        });
+
+
+
+    /* =====================================
+       NO MATCH
+    ===================================== */
+
+    if (
+        matchingRecipes.length === 0
+    ) {
+
+        showNoMatch(
+            budget,
+            people
+        );
+
+        return;
+
+    }
+
+
+
+    /* =====================================
+       RANDOM RECIPE
+    ===================================== */
+
+    const randomIndex =
+        Math.floor(
+            Math.random() *
+            matchingRecipes.length
+        );
+
+
+    currentRecipe =
+        matchingRecipes[randomIndex];
+
+
+    displayGeneratedRecipe(
+        currentRecipe,
+        budget,
+        people
+    );
+
+}
+
+
+
+/* =========================================
+   CALCULATE ADJUSTED COST
+========================================= */
+
+function calculateAdjustedCost(
+    baseCost,
+    baseServings,
+    people
+) {
+
+    const costPerServing =
+        baseCost / baseServings;
+
+
+    return (
+        costPerServing *
+        people
+    );
+
+}
+
+
+
+/* =========================================
+   DISPLAY GENERATED RECIPE
+========================================= */
+
+function displayGeneratedRecipe(
+    recipe,
+    budget,
+    people
+) {
+
+    const result =
+        document.getElementById(
+            "generatorResult"
+        );
+
+
+    const adjustedCost =
+        calculateAdjustedCost(
+            recipe.estimated_cost,
+            recipe.servings,
+            people
+        );
+
+
+    const costPerPerson =
+        adjustedCost / people;
+
+
+    const remainingBudget =
+        budget - adjustedCost;
+
+
+
+    result.innerHTML = `
+
+        <div class="generated-recipe">
+
+            <div class="generated-top">
+
+                <span class="success-label">
+                    BUDGET MATCH
+                </span>
+
+                <span class="rating">
+                    ${recipe.rating} ★
+                </span>
+
+            </div>
+
+
+            <div class="recipe-cuisine">
                 ${recipe.type}
             </div>
 
-            <h3>
+
+            <h2>
                 ${recipe.name}
-            </h3>
+            </h2>
 
-            <div class="meta">
 
-                <span>
-                    ₱${recipe.estimated_cost}
-                </span>
+            <p class="generated-description">
 
-                <span>
-                    ${recipe.servings} servings
-                </span>
+                ${recipe.description}
 
-                <span>
-                    ${recipe.rating} ⭐
-                </span>
+            </p>
+
+
+
+            <div class="budget-summary">
+
+
+                <div>
+
+                    <span>
+                        Your Budget
+                    </span>
+
+                    <strong>
+                        ₱${formatMoney(budget)}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Estimated Cost
+                    </span>
+
+                    <strong>
+                        ₱${formatMoney(adjustedCost)}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Remaining
+                    </span>
+
+                    <strong class="remaining">
+                        ₱${formatMoney(remainingBudget)}
+                    </strong>
+
+                </div>
 
             </div>
 
-            <p class="desc">
-                ${recipe.description}
-            </p>
 
-            <button
-                onclick="viewRecipe(${recipe.id})"
-            >
-                View Recipe
-            </button>
-        `;
 
-        container.appendChild(card);
-    });
+            <div class="recipe-information">
+
+
+                <div>
+
+                    <span>
+                        People
+                    </span>
+
+                    <strong>
+                        ${people}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Per Person
+                    </span>
+
+                    <strong>
+                        ₱${formatMoney(costPerPerson)}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Difficulty
+                    </span>
+
+                    <strong>
+                        ${recipe.difficulty}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="ingredient-preview">
+
+                <span class="preview-title">
+                    Main ingredients
+                </span>
+
+                <div class="ingredient-tags">
+
+                    ${recipe.ingredients
+                        .slice(0, 5)
+                        .map(
+                            ingredient =>
+                            `<span>${ingredient}</span>`
+                        )
+                        .join("")
+                    }
+
+                </div>
+
+            </div>
+
+
+
+            <div class="result-actions">
+
+
+                <button
+                    type="button"
+                    onclick="viewCurrentRecipe()"
+                    class="details-button"
+                >
+                    View Recipe
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="generateAnotherRecipe()"
+                    class="another-button"
+                >
+                    Generate Another
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
 }
 
 
-/* =========================
-   RECIPE DETAILS
-========================= */
 
-async function viewRecipe(id) {
+/* =========================================
+   GENERATE ANOTHER MATCH
+========================================= */
 
-    try {
+function generateAnotherRecipe() {
 
-        const response = await fetch(
-            `${API_URL}/recipes/${id}`,
-            FETCH_OPTIONS
+    if (
+        matchingRecipes.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        matchingRecipes.length === 1
+    ) {
+
+        generateBudgetRecipe();
+
+        return;
+
+    }
+
+
+    let nextRecipe;
+
+
+    do {
+
+        const randomIndex =
+            Math.floor(
+                Math.random() *
+                matchingRecipes.length
+            );
+
+
+        nextRecipe =
+            matchingRecipes[randomIndex];
+
+    }
+
+    while (
+        currentRecipe &&
+        nextRecipe.id === currentRecipe.id
+    );
+
+
+    currentRecipe =
+        nextRecipe;
+
+
+    const budget =
+        Number(
+            document
+                .getElementById("budgetInput")
+                .value
         );
 
-        if (!response.ok) {
-            throw new Error("Unable to load recipe.");
-        }
 
-        const recipe =
-            await response.json();
+    const people =
+        Number(
+            document
+                .getElementById("peopleInput")
+                .value
+        );
 
-        openModal(recipe);
 
-    } catch (error) {
+    displayGeneratedRecipe(
+        currentRecipe,
+        budget,
+        people
+    );
 
-        console.error(error);
-
-        alert("Unable to retrieve recipe.");
-    }
 }
 
+
+
+/* =========================================
+   VIEW CURRENT RECIPE
+========================================= */
+
+function viewCurrentRecipe() {
+
+    if (!currentRecipe) {
+
+        return;
+
+    }
+
+
+    openModal(
+        currentRecipe
+    );
+
+}
+
+
+
+/* =========================================
+   MODAL
+========================================= */
 
 function openModal(recipe) {
 
     const body =
-        document.getElementById("modalBody");
+        document.getElementById(
+            "modalBody"
+        );
+
+
+    const people =
+        Number(
+            document
+                .getElementById("peopleInput")
+                .value
+        );
+
+
+    const adjustedCost =
+        calculateAdjustedCost(
+            recipe.estimated_cost,
+            recipe.servings,
+            people
+        );
+
+
+
+    const allergens =
+
+        recipe.allergen &&
+        recipe.allergen.length > 0
+
+            ? recipe.allergen
+                .map(
+                    allergen =>
+                    `
+                    <span class="allergen-tag">
+                        ${allergen}
+                    </span>
+                    `
+                )
+                .join("")
+
+            : `
+                <span class="allergen-tag">
+                    None
+                </span>
+            `;
+
 
 
     body.innerHTML = `
 
-        <div class="recipe-type">
+        <div class="recipe-cuisine">
             ${recipe.type}
         </div>
 
-        <h3>
+
+        <h2>
             ${recipe.name}
-        </h3>
+        </h2>
 
-        <div class="meta">
 
-            <span>
-                ₱${recipe.estimated_cost}
-            </span>
-
-            <span>
-                ${recipe.servings} servings
-            </span>
-
-            <span>
-                ${recipe.rating} ⭐
-            </span>
-
-        </div>
-
-        <p class="desc">
+        <p class="modal-description">
             ${recipe.description}
         </p>
 
 
-        <h4>Ingredients</h4>
+
+        <div class="modal-cost">
+
+            <div>
+
+                <span>
+                    Estimated Cost
+                </span>
+
+                <strong>
+                    ₱${formatMoney(adjustedCost)}
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    People
+                </span>
+
+                <strong>
+                    ${people}
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Difficulty
+                </span>
+
+                <strong>
+                    ${recipe.difficulty}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <h3>
+            Ingredients
+        </h3>
+
 
         <ul class="ingredients">
 
-            ${(recipe.ingredients || [])
-                .map(item =>
-                    `<li>${item}</li>`
+            ${recipe.ingredients
+                .map(
+                    ingredient =>
+                    `<li>${ingredient}</li>`
                 )
-                .join("")}
+                .join("")
+            }
 
         </ul>
 
 
-        <h4>Steps</h4>
+
+        <h3>
+            Cooking Steps
+        </h3>
+
 
         <ol class="steps">
 
-            ${(recipe.steps || [])
-                .map(step =>
+            ${recipe.steps
+                .map(
+                    step =>
                     `<li>${step}</li>`
                 )
-                .join("")}
+                .join("")
+            }
 
         </ol>
 
 
-        <h4>Estimated Cost</h4>
+
+        <h3>
+            Nutrition
+        </h3>
+
 
         <div class="nutrition-grid">
 
+
             <div>
+
                 <strong>
-                    ₱${recipe.estimated_cost}
+                    ${recipe.protein}g
                 </strong>
 
                 <span>
-                    Total Cost
+                    Protein
                 </span>
+
             </div>
 
+
             <div>
+
                 <strong>
-                    ₱${(
-                        recipe.estimated_cost /
-                        recipe.servings
-                    ).toFixed(2)}
+                    ${recipe.carbs}g
                 </strong>
 
                 <span>
-                    Per Serving
+                    Carbs
                 </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    ${recipe.sugar}g
+                </strong>
+
+                <span>
+                    Sugar
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    ${recipe.fiber}g
+                </strong>
+
+                <span>
+                    Fiber
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    ${recipe.sodium}mg
+                </strong>
+
+                <span>
+                    Sodium
+                </span>
+
             </div>
 
         </div>
+
+
+
+        <h3>
+            Allergens
+        </h3>
+
+
+        <div>
+            ${allergens}
+        </div>
+
     `;
 
 
+
     document
-        .getElementById("modalOverlay")
+        .getElementById(
+            "modalOverlay"
+        )
         .classList
         .add("open");
 
 
     document.body.style.overflow =
         "hidden";
+
 }
 
+
+
+/* =========================================
+   CLOSE MODAL
+========================================= */
 
 function closeModal() {
 
     document
-        .getElementById("modalOverlay")
+        .getElementById(
+            "modalOverlay"
+        )
         .classList
         .remove("open");
 
 
     document.body.style.overflow =
         "";
+
 }
 
 
-function clearSearch() {
 
-    document.getElementById("searchInput").value = "";
+/* =========================================
+   NO MATCH
+========================================= */
 
-    document.getElementById("budgetInput").value = "";
+function showNoMatch(
+    budget,
+    people
+) {
 
-    applyFiltersAndRender();
+    const result =
+        document.getElementById(
+            "generatorResult"
+        );
+
+
+    result.innerHTML = `
+
+        <div class="empty-result">
+
+            <div class="result-icon warning">
+                !
+            </div>
+
+
+            <h3>
+                No recipe found
+            </h3>
+
+
+            <p>
+
+                We could not find a recipe
+                for ${people} people within
+                a ₱${formatMoney(budget)} budget.
+
+            </p>
+
+
+            <p class="suggestion">
+
+                Try increasing your budget,
+                reducing the number of people,
+                or selecting Any Cuisine.
+
+            </p>
+
+        </div>
+
+    `;
+
 }
 
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function showGeneratorMessage(
+    message
+) {
+
+    const result =
+        document.getElementById(
+            "generatorResult"
+        );
+
+
+    result.innerHTML = `
+
+        <div class="empty-result">
+
+            <div class="result-icon warning">
+                !
+            </div>
+
+            <h3>
+                Generator
+            </h3>
+
+            <p>
+                ${message}
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =========================================
+   FORMAT MONEY
+========================================= */
+
+function formatMoney(value) {
+
+    return Number(value)
+        .toFixed(2);
+
+}
+
+
+
+/* =========================================
+   RESET GENERATOR
+========================================= */
+
+function resetGenerator() {
+
+    document
+        .getElementById(
+            "budgetInput"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "peopleInput"
+        )
+        .value = 2;
+
+
+    document
+        .getElementById(
+            "cuisineInput"
+        )
+        .value = "all";
+
+
+    document
+        .getElementById(
+            "difficultyInput"
+        )
+        .value = "all";
+
+
+    matchingRecipes = [];
+
+    currentRecipe = null;
+
+
+    document
+        .getElementById(
+            "generatorResult"
+        )
+        .innerHTML = `
+
+            <div class="empty-result">
+
+                <div class="result-icon">
+                    ₱
+                </div>
+
+                <h3>
+                    Your meal will appear here
+                </h3>
+
+                <p>
+
+                    Enter your budget and number
+                    of people, then press
+                    Generate Meal.
+
+                </p>
+
+            </div>
+
+        `;
+
+}
+
+
+
+/* =========================================
+   MODAL EVENTS
+========================================= */
 
 document
-    .getElementById("searchInput")
+    .getElementById(
+        "modalOverlay"
+    )
     .addEventListener(
-        "input",
-        applyFiltersAndRender
+        "click",
+        function (event) {
+
+            if (
+                event.target.id ===
+                "modalOverlay"
+            ) {
+
+                closeModal();
+
+            }
+
+        }
     );
 
+
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================
+   ENTER KEY
+========================================= */
+
+document
+    .getElementById(
+        "budgetInput"
+    )
+    .addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                generateBudgetRecipe();
+
+            }
+
+        }
+    );
+
+
+
+/* =========================================
+   START APPLICATION
+========================================= */
 
 loadRecipes();
